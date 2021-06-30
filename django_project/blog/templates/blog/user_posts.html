@@ -1,0 +1,82 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<header>
+
+	<div class="container">
+
+		<div class="profile">
+
+			<div class="profile-image">
+
+				<img src="{{ posts.0.author.profile.image.url }}" width="50%" height="50%" alt="">
+
+			</div>
+
+			<div class="profile-user-settings">
+
+				<h1 class="profile-user-name">{{ view.kwargs.username }}</h1>
+
+        {% if posts.0.author == user %}
+        <a href="{% url 'profile' %}">
+              <button class="btn profile-edit-btn">Editar perfil</button>
+          </a>
+				{% endif %}
+
+			</div>
+
+			<div class="profile-bio">
+
+				<p><span class="profile-real-name">{{ posts.0.author.email }}</span>: usuario desde, {{ posts.0.author.date_joined }}</p>
+
+			</div>
+
+		</div>
+		<!-- End of profile section -->
+
+	</div>
+	<!-- End of container -->
+
+</header>
+
+<main>
+
+	<div class="container">
+
+		<div class="gallery">
+
+{% for post in posts %}
+      
+        <div class="gallery-item" tabindex="0">
+        
+        <a id="linkA"  href="{% url 'post-detail' post.id %}">
+				<img src="{{ post.image.url }}" class="gallery-image" alt="" >
+        
+
+				  <div class="gallery-item-info">
+
+					  <ul>
+          
+						  <li class="gallery-item-comments">
+              <span class="visually-hidden"></span><i class="fas fa-comment" aria-hidden="true">
+              </i>  {{post.number_of_comments}}</li>
+					  </ul>
+
+				  </div>
+          </a>
+
+			  </div>
+      
+
+			
+{% endfor %}
+
+		</div>
+		<!-- End of gallery -->
+
+	</div>
+	<!-- End of container -->
+
+</main>
+
+{% endblock content %}
